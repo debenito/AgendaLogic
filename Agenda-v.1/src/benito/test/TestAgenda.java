@@ -13,7 +13,7 @@ public class TestAgenda {
 	Agenda agenda = new Agenda();
 	Grupo grupoParlamentario = new Grupo("RXN0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h", "Grupo Parlamentario");
 	Grupo Reins = new Grupo("RXN0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h","Grupo Reins");
-	Grupo asociacion = new Grupo("RXN0YSBlcyBsYSBub3RhIGRlIGVOFnaW5h","Asociacion Sede");
+	Grupo asociacion = new Grupo("RXN0YSBlcyBsYSBub3RhIGRlIGVOFnaW5h","Asociacion Asede");
 	Grupo representantes =new Grupo("YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h","Representantes");
 	Grupo Favoritos = new Grupo ("BsYSBub3RhIGRlIGVzdGEgcOFnaW5h","Favoritos");
 	Contacto Leo = new Contacto("RXN0YSBlcyBsYSIGRlIGVzdGEgcOFnaW5h","Leo","Martinez","523123879");
@@ -85,6 +85,25 @@ public class TestAgenda {
 	}
 	
 	@Test
+	public void ComprobacionNombre(){
+		assertEquals(((Contacto)Reins.getAgrupacion().get(1)).getNombre(),"Leo");
+		assertEquals(((Contacto)Reins.getAgrupacion().get(2)).getNombre(),"Marta");
+		assertNotEquals(((Contacto)Reins.getAgrupacion().get(2)).getNombre(),"Juanma");
+		assertNotEquals(((Contacto)representantes.getAgrupacion().get(1)).getNombre(),"Suarez");
+		assertEquals(((Contacto)representantes.getAgrupacion().get(1)).getNombre(),"Vicepresidente");
+		assertEquals(((Grupo)agenda.verGrupos().get(0)).getNombre_Grupo(),grupoParlamentario.getNombre_Grupo());
+		assertEquals(((Grupo)Reins.getAgrupacion().get(0)).getNombre_Grupo(), "Asociacion Asede");
+	}
+	
+	@Test
+	public void ComprobacionApellidos(){
+		assertEquals(((Contacto)Reins.getAgrupacion().get(1)).getApellidos(),"Martinez");
+		assertEquals(((Contacto)Reins.getAgrupacion().get(2)).getApellidos(),"Suarez");
+		assertNotEquals(((Contacto)Reins.getAgrupacion().get(2)).getApellidos(),"Juanma");
+		assertNotEquals(((Contacto)representantes.getAgrupacion().get(1)).getApellidos(),"Suarez");
+		assertEquals(((Contacto)representantes.getAgrupacion().get(1)).getApellidos(),"");
+	}
+	@Test
 	public void removerContactos(){
 		agenda.removeContactos(grupoParlamentario);
 		assertEquals(agenda.verGrupos().size(), 1);
@@ -99,6 +118,6 @@ public class TestAgenda {
 		assertEquals(true, agenda.verGrupos().isEmpty());
 		
 	}
-
+	
 
 }
