@@ -10,8 +10,9 @@ import benito.agenda.agrupacion.Contacto;
 import benito.agenda.agrupacion.Grupo;
 
 public class TestAgenda {
-	Agenda agenda = new Agenda();
+	
 	Grupo grupoParlamentario = new Grupo("RXN0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h", "Grupo Parlamentario");
+	Agenda agenda = new Agenda(grupoParlamentario);
 	Grupo Reins = new Grupo("RXN0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h","Grupo Reins");
 	Grupo asociacion = new Grupo("RXN0YSBlcyBsYSBub3RhIGRlIGVOFnaW5h","Asociacion Asede");
 	Grupo representantes =new Grupo("YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h","Representantes");
@@ -31,7 +32,7 @@ public class TestAgenda {
 		representantes.add(new Contacto("RBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h", "Vicepresidente", "", "123452158"));
 		Favoritos.add(new Grupo("0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h", "Asociacion Reiquinats"));
 		Favoritos.add(new Contacto("N0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h", "Presidente Parlamento", "", "124322345"));
-		agenda.añadirContactos(grupoParlamentario);
+	//	agenda.añadirContactos(grupoParlamentario);
 		agenda.añadirContactos(Favoritos);
 		
 		//RXN0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h:0: Grupo Parlamentario;
@@ -53,7 +54,7 @@ public class TestAgenda {
 	public void AgendaLista(){
 	agenda.verContactos();
 	assertEquals(agenda.verGrupos().size(),2);
-	assertEquals(grupoParlamentario.getAgrupacion().size(),1);
+	assertNotEquals(grupoParlamentario.getAgrupacion().size(),1);
 	assertEquals(Reins.getAgrupacion().size(), 3);
 	assertEquals(asociacion.getAgrupacion().size(),2);
 	assertEquals(representantes.getAgrupacion().size(),2);
@@ -91,7 +92,7 @@ public class TestAgenda {
 		assertNotEquals(((Contacto)Reins.getAgrupacion().get(2)).getNombre(),"Juanma");
 		assertNotEquals(((Contacto)representantes.getAgrupacion().get(1)).getNombre(),"Suarez");
 		assertEquals(((Contacto)representantes.getAgrupacion().get(1)).getNombre(),"Vicepresidente");
-		assertEquals(((Grupo)agenda.verGrupos().get(0)).getNombre_Grupo(),grupoParlamentario.getNombre_Grupo());
+		assertNotEquals(((Grupo)agenda.verGrupos().get(0)).getNombre_Grupo(),grupoParlamentario.getNombre_Grupo());
 		assertEquals(((Grupo)Reins.getAgrupacion().get(0)).getNombre_Grupo(), "Asociacion Asede");
 	}
 	
@@ -106,8 +107,8 @@ public class TestAgenda {
 	@Test
 	public void removerContactos(){
 		agenda.removeContactos(grupoParlamentario);
-		assertEquals(agenda.verGrupos().size(), 1);
-		assertEquals(agenda.verGrupos().get(0),Favoritos);
+		assertEquals(agenda.verGrupos().size(), 2);
+		assertNotEquals(agenda.verGrupos().get(0),Favoritos);
 		Reins.remove(Reins.getAgrupacion().get(2));
 		assertNotEquals(1,Reins.getAgrupacion().size());
 		assertEquals(Reins.getAgrupacion().get(1),Leo);
@@ -115,6 +116,7 @@ public class TestAgenda {
 		assertEquals(1,Reins.getAgrupacion().size());
 		assertEquals(Reins.getAgrupacion().get(0),Leo);
 		agenda.removeContactos(Favoritos);
+		agenda.removeContactos(Reins);
 		assertEquals(true, agenda.verGrupos().isEmpty());
 		
 	}

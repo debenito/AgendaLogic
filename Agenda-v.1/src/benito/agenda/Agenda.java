@@ -6,10 +6,11 @@ import benito.agenda.agrupacion.Agrupacion;
 import benito.agenda.agrupacion.Grupo;
 
 public class Agenda {
-	Grupo gr =  new Grupo("Imagen Agenda", "Agenda");
-	Agrupacion agrupacion = gr;
 	
-	
+	private Agrupacion agrupacion;
+	public Agenda(Agrupacion agrupacion){
+		this.agrupacion= agrupacion;
+	}
 	public void añadirContactos(Agrupacion o){
 		agrupacion.add(o);
 	}
@@ -21,7 +22,7 @@ public class Agenda {
 	}
 	
 	public List<Agrupacion> verGrupos(){
-		return gr.getAgrupacion();
+		return ((Grupo)agrupacion).getAgrupacion();
 	}
 	
 }
