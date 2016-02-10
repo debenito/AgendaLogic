@@ -4,14 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import benito.agenda.Agenda;
+import benito.agenda.agrupacion.Agrupacion;
 import benito.agenda.agrupacion.Contacto;
 import benito.agenda.agrupacion.Grupo;
 
@@ -32,22 +33,35 @@ public class TestAgenda {
 		String linea = null ;
 		int i = 0;
 		Grupo g = null;
+	
 		while ((linea= read.readLine()) != null) {
-			 linea=read.readLine();
+			
 			 String partes[]= linea.split(":");
 			 if(partes.length == 3 && i == 0){
-				 g= new Grupo(partes[0], partes[2]);
+				 g= new Grupo(partes[0], partes[2].replace(";", ""));
 				 agenda = new Agenda(g);
 			 }
-			 else if(partes.length >3 && partes[1].equals(g.getNombre_Grupo()))
+			 else if(g.getNombre_Grupo().equals(partes[1]) && partes.length>3)
 					g.add(new Contacto(partes[0], partes[2], partes[3], partes[4]));
-			 else if(partes[1].equals(g.getNombre_Grupo())) {
-				 Grupo g2 = new Grupo(partes[0], partes[2]);
-				 g.add(g2);
-			 }else{
-				 g = new Grupo(partes[0],partes[2]);
-				 agenda.añadirContactos(g);
-			 	}
+			 else if(g.getNombre_Grupo().equals(partes[1]) && partes.length<=3)
+				 g.add(new Grupo(partes[0], partes[2].replace(";", "")));
+
+				 else{
+					 boolean encontrado = false;
+						List<Agrupacion> lista = agenda.verGrupos();
+					 while(encontrado == false){
+						 for (Agrupacion a : lista) {
+					if(((Grupo)a).getNombre_Grupo().equals(partes[1])&& partes.length >3){
+						((Grupo)a).add(new Contacto(partes[0], partes[2], partes[3], partes[4]));
+					encontrado = true;
+					}
+					if(partes[1].equals(((Grupo)a).getNombre_Grupo()) && partes.length <=3) {
+					 ((Grupo)a).add(new Grupo(partes[0], partes[2].replace(";", "")));
+					encontrado = true;
+						}
+				 	}
+				 }
+			}
 			 i++;
 		}
 		
