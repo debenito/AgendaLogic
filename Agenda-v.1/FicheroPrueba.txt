@@ -1,0 +1,24 @@
+
+Imagen Grupo :RXN0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h|Nombre_Grupo :Grupo Parlamentario
+
+Imagen Grupo :RXN0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h|Nombre_Grupo :Grupo Reins
+
+Imagen Grupo :RXN0YSBlcyBsYSBub3RhIGRlIGVOFnaW5h|Nombre_Grupo :Asociacion Asede
+
+Imagen :YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h|Nombre y Apellidos : Juanma&Rodriguez|Telefono :345462967
+
+Imagen Grupo :YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h|Nombre_Grupo :Representantes
+
+Imagen :XN0YSBlcyBsYSRhIGRlIGVzdGEgcOFnaW5h|Nombre y Apellidos : Presidente&|Telefono :123432476
+
+Imagen :RBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h|Nombre y Apellidos : Vicepresidente&|Telefono :123452158
+
+Imagen :RXN0YSBlcyBsYSIGRlIGVzdGEgcOFnaW5h|Nombre y Apellidos : Leo&Martinez|Telefono :523123879
+
+Imagen :SBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h|Nombre y Apellidos : Marta&Suarez|Telefono :123432567
+
+Imagen Grupo :BsYSBub3RhIGRlIGVzdGEgcOFnaW5h|Nombre_Grupo :Favoritos
+
+Imagen Grupo :0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h|Nombre_Grupo :Asociacion Reiquinats
+
+Imagen :N0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h|Nombre y Apellidos : Presidente Parlamento&|Telefono :124322345

@@ -12,13 +12,16 @@ public class Agenda {
 		this.agrupacion= agrupacion;
 	}
 	public void añadirContactos(Agrupacion o){
-		agrupacion.add(o);
+		if(agrupacion instanceof Grupo)
+		((Grupo)agrupacion).add(o);
 	}
-	public void verContactos(){
-		agrupacion.ver();
+	public String verContactos(){
+		 return agrupacion.ver();
+		 
 	}
 	public void removeContactos(Agrupacion o){
-		agrupacion.remove(o);
+		if(agrupacion instanceof Grupo)
+		((Grupo)agrupacion).remove(o);
 	}
 	
 	public List<Agrupacion> verGrupos(){

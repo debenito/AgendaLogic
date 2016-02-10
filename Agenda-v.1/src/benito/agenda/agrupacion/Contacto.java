@@ -31,23 +31,14 @@ public class Contacto extends Agrupacion {
 		Telefono = telefono;
 	}
 
-	public String llamar(){
+	private String llamar(){
 		return "Llamando al telefono"+ Telefono;
 	}
+
 	@Override
-	public void add(Agrupacion o) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void remove(Agrupacion o) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void ver() {
-		System.out.println("Imagen :"+ Imagen + "|Nombre y Apellidos : "+ Nombre + "&"+ Apellidos+"|Telefono :"+Telefono);
-;
+	public String ver() {
+		return "Imagen :"+ Imagen + "|Nombre y Apellidos : "+ Nombre + "&"+ Apellidos+"|Telefono :"+Telefono +"\n";
+
 	}
 	public Contacto(String imagen, String nombre, String apellidos,
 			String telefono) {
@@ -56,6 +47,10 @@ public class Contacto extends Agrupacion {
 		Nombre = nombre;
 		Apellidos = apellidos;
 		Telefono = telefono;
+	}
+	@Override
+	public String clickOn() {
+		return llamar();
 	}
 	
 	

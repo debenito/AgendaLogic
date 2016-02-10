@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Grupo extends Agrupacion{
 	private ArrayList<Agrupacion> agrupacion = new ArrayList<>();	
+	String nuevo = "";
 	public Grupo(String imagen, String nombre_Grupo) {
 		super();
 		Imagen = imagen;
@@ -26,27 +27,33 @@ public class Grupo extends Agrupacion{
 	public void setNombre_Grupo(String nombre_Grupo) {
 		Nombre_Grupo = nombre_Grupo;
 	}
-	@Override
+	
 	public void add(Agrupacion o) {
 		agrupacion.add(o);
 		
 	}
-	@Override
+
 	public void remove(Agrupacion o) {
 		agrupacion.remove(o);
 		
 	}
-	@Override
-	public void ver() {
-		System.out.println("Imagen Grupo :"+ Imagen + "|Nombre_Grupo :"+ Nombre_Grupo);
+
+	public String ver() {
+		 nuevo +="Imagen Grupo :"+ Imagen + "|Nombre_Grupo :"+ Nombre_Grupo+"\n";
 			for (Agrupacion agrupacion2 : agrupacion) {
-				agrupacion2.ver();
+				nuevo += agrupacion2.ver();
 				
 			}
+			return nuevo;
 		
 	}
 	public ArrayList<Agrupacion> getAgrupacion() {
 		return agrupacion;
+	}
+	@Override
+	public String clickOn() {
+		
+		return getAgrupacion().toString();
 	}
 	
 	

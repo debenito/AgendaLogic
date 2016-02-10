@@ -1,6 +1,12 @@
 package benito.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +17,7 @@ import benito.agenda.agrupacion.Grupo;
 
 public class TestAgenda {
 	
+	
 	Grupo grupoParlamentario = new Grupo("RXN0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h", "Grupo Parlamentario");
 	Agenda agenda = new Agenda(grupoParlamentario);
 	Grupo Reins = new Grupo("RXN0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h","Grupo Reins");
@@ -19,10 +26,32 @@ public class TestAgenda {
 	Grupo Favoritos = new Grupo ("BsYSBub3RhIGRlIGVzdGEgcOFnaW5h","Favoritos");
 	Contacto Leo = new Contacto("RXN0YSBlcyBsYSIGRlIGVzdGEgcOFnaW5h","Leo","Martinez","523123879");
 	@Before
-	public void test() {
+	public void test() throws IOException {
 	//	fail("Not yet implemented");
+		BufferedReader read =new BufferedReader(new FileReader("FicheroREST.txt"));
+		String linea = null ;
+		int i = 0;
+		Grupo g = null;
+		while ((linea= read.readLine()) != null) {
+			 linea=read.readLine();
+			 String partes[]= linea.split(":");
+			 if(partes.length == 3 && i == 0){
+				 g= new Grupo(partes[0], partes[2]);
+				 agenda = new Agenda(g);
+			 }
+			 else if(partes.length >3 && partes[1].equals(g.getNombre_Grupo()))
+					g.add(new Contacto(partes[0], partes[2], partes[3], partes[4]));
+			 else if(partes[1].equals(g.getNombre_Grupo())) {
+				 Grupo g2 = new Grupo(partes[0], partes[2]);
+				 g.add(g2);
+			 }else{
+				 g = new Grupo(partes[0],partes[2]);
+				 agenda.añadirContactos(g);
+			 	}
+			 i++;
+		}
 		
-		grupoParlamentario.add(Reins);
+	/*	grupoParlamentario.add(Reins);
 		Reins.add(asociacion);
 		Reins.add(Leo);
 		Reins.add(new Contacto("SBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h","Marta","Suarez","123432567"));
@@ -33,7 +62,7 @@ public class TestAgenda {
 		Favoritos.add(new Grupo("0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h", "Asociacion Reiquinats"));
 		Favoritos.add(new Contacto("N0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h", "Presidente Parlamento", "", "124322345"));
 	//	agenda.añadirContactos(grupoParlamentario);
-		agenda.añadirContactos(Favoritos);
+		agenda.añadirContactos(Favoritos);*/
 		
 		//RXN0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h:0: Grupo Parlamentario;
 		//RXN0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h:Grupo Parlamentario: Grupo Reins;	
@@ -47,12 +76,12 @@ public class TestAgenda {
 		//BsYSBub3RhIGRlIGVzdGEgcOFnaW5h:Grupo Parlamentario:Favoritos;
 		//0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h:Favoritos:Asociacion Reiquinats;
 		//N0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h:Favoritos:Presidente Parlamento:124322345;
-	
+	System.out.println(agenda.verContactos());
 	}
 	
 	@Test
 	public void AgendaLista(){
-	agenda.verContactos();
+	//agenda.verContactos();
 	assertEquals(agenda.verGrupos().size(),2);
 	assertNotEquals(grupoParlamentario.getAgrupacion().size(),1);
 	assertEquals(Reins.getAgrupacion().size(), 3);
@@ -77,11 +106,11 @@ public class TestAgenda {
 	@Test
 	public void LLamadas(){
 		
-		assertEquals(((Contacto)Reins.getAgrupacion().get(1)).llamar(),"Llamando al telefono"+ Leo.getTelefono());
-		assertEquals(((Contacto)Reins.getAgrupacion().get(2)).llamar(),"Llamando al telefono"+ "123432567");
-		assertNotEquals(((Contacto)Reins.getAgrupacion().get(2)).llamar(),"Llamando al telefono"+ Leo.getTelefono());
-		assertNotEquals(((Contacto)representantes.getAgrupacion().get(1)).llamar(),"Llamando al telefono"+ Leo.getTelefono());
-		assertEquals(((Contacto)representantes.getAgrupacion().get(1)).llamar(),"Llamando al telefono"+ "123452158");
+		assertEquals(((Contacto)Reins.getAgrupacion().get(1)).clickOn(),"Llamando al telefono"+ Leo.getTelefono());
+		assertEquals(((Contacto)Reins.getAgrupacion().get(2)).clickOn(),"Llamando al telefono"+ "123432567");
+		assertNotEquals(((Contacto)Reins.getAgrupacion().get(2)).clickOn(),"Llamando al telefono"+ Leo.getTelefono());
+		assertNotEquals(((Contacto)representantes.getAgrupacion().get(1)).clickOn(),"Llamando al telefono"+ Leo.getTelefono());
+		assertEquals(((Contacto)representantes.getAgrupacion().get(1)).clickOn(),"Llamando al telefono"+ "123452158");
 
 	}
 	
@@ -119,6 +148,18 @@ public class TestAgenda {
 		agenda.removeContactos(Reins);
 		assertEquals(true, agenda.verGrupos().isEmpty());
 		
+	}
+	
+	@Test
+	public void ComprobacionSalida() throws IOException{
+	
+		BufferedReader read =new BufferedReader(new FileReader("FicheroPrueba.txt"));
+		String sCurrentLine = "" ;
+
+		while (read.readLine() != null) {
+			sCurrentLine += read.readLine()+"\n";
+		}
+		assertEquals(agenda.verContactos(),sCurrentLine);
 	}
 	
 
