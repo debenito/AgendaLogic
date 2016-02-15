@@ -9,11 +9,13 @@ import java.util.List;
 import benito.agenda.agrupacion.Agrupacion;
 import benito.agenda.agrupacion.Contacto;
 import benito.agenda.agrupacion.Grupo;
+import benito.agenda.servidor.HttpServicio;
+import benito.agenda.servidor.ParserHttp;
 
 public class Agenda {
 
 	private Agrupacion agrupacion;
-
+	private HttpServicio service;
 	public Agenda(){
 	this.agrupacion= new Grupo("0","0");
 	}
@@ -68,6 +70,13 @@ public class Agenda {
 		} catch (FileNotFoundException e) {
 			System.out.println("Problemas en la carga del fichero");
 		}
+		
+	
+		
+	}
+	public void sacarDatosServidor(){
+		this.service = new ParserHttp("");
+		service.execute();
 		
 	}
 }
