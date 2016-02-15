@@ -1,12 +1,12 @@
 RXN0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h::Grupo Parlamentario;
 RXN0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h:Grupo Parlamentario:Grupo Reins;
 BsYSBub3RhIGRlIGVzdGEgcOFnaW5h:Grupo Parlamentario:Favoritos;
-RXN0YSBlcyBsYSIGRlIGVzdGEgcOFnaW5h:Grupo Reins:Leo:Marinez:523123879;
+RXN0YSBlcyBsYSIGRlIGVzdGEgcOFnaW5h:Grupo Reins:Leo:Martinez:523123879;
 SBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h:Grupo Reins:Marta:Suarez:123432567;
 RXN0YSBlcyBsYSBub3RhIGRlIGVOFnaW5h:Grupo Reins:Asociacion Asede;
 YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h:Asociacion Asede:Juanma:Rodriguez:345462967;
 YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h:Asociacion Asede:Representantes;
-XN0YSBlcyBsYSRhIGRlIGVzdGEgcOFnaW5h:Representante:Presidente:123432476;
-RBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h:Representantes:Vicepresidente:123452158;
-N0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h:Favoritos:Presidente Parlamento:124322345;
+XN0YSBlcyBsYSRhIGRlIGVzdGEgcOFnaW5h:Representantes:Presidente::123432476;
+RBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h:Representantes:Vicepresidente::123452158;
+N0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h:Favoritos:Presidente Parlamento::124322345;
 0YSBlcyBsYSBub3RhIGRlIGVzdGEgcOFnaW5h:Favoritos:Asociacion Reiquinats;

@@ -2,7 +2,6 @@ package benito.agenda.agrupacion;
 
 public class Contacto extends Agrupacion {
 	String Imagen;
-	String Nombre;
 	String Apellidos;
 	String Telefono;
 	
@@ -12,12 +11,7 @@ public class Contacto extends Agrupacion {
 	public void setImagen(String imagen) {
 		Imagen = imagen;
 	}
-	public String getNombre() {
-		return Nombre;
-	}
-	public void setNombre(String nombre) {
-		Nombre = nombre;
-	}
+	
 	public String getApellidos() {
 		return Apellidos;
 	}
@@ -37,14 +31,13 @@ public class Contacto extends Agrupacion {
 
 	@Override
 	public String ver() {
-		return "Imagen :"+ Imagen + "|Nombre y Apellidos : "+ Nombre + "&"+ Apellidos+"|Telefono :"+Telefono +"\n";
+		return "Imagen :"+ Imagen + "|Nombre y Apellidos : "+ super.getNombre() + "&"+ Apellidos+"|Telefono :"+Telefono +"\n";
 
 	}
 	public Contacto(String imagen, String nombre, String apellidos,
 			String telefono) {
-		super();
+		super(nombre);
 		Imagen = imagen;
-		Nombre = nombre;
 		Apellidos = apellidos;
 		Telefono = telefono;
 	}

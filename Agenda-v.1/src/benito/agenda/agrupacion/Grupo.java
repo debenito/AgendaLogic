@@ -4,29 +4,23 @@ import java.util.ArrayList;
 
 public class Grupo extends Agrupacion{
 	private ArrayList<Agrupacion> agrupacion = new ArrayList<>();	
-	String nuevo = "";
-	public Grupo(String imagen, String nombre_Grupo) {
-		super();
-		Imagen = imagen;
-		Nombre_Grupo = nombre_Grupo;
-	}
+	private String nuevo = "";
 	private String Imagen;
-	private String Nombre_Grupo;
-	
 
-	
+	public Grupo(String imagen, String nombre_Grupo) {
+		super(nombre_Grupo);
+		Imagen = imagen;
+		
+	}
+		
 	public String getImagen() {
 		return Imagen;
 	}
 	public void setImagen(String imagen) {
 		Imagen = imagen;
 	}
-	public String getNombre_Grupo() {
-		return Nombre_Grupo;
-	}
-	public void setNombre_Grupo(String nombre_Grupo) {
-		Nombre_Grupo = nombre_Grupo;
-	}
+	
+	
 	
 	public void add(Agrupacion o) {
 		agrupacion.add(o);
@@ -39,7 +33,7 @@ public class Grupo extends Agrupacion{
 	}
 
 	public String ver() {
-		 nuevo +="Imagen Grupo :"+ Imagen + "|Nombre_Grupo :"+ Nombre_Grupo+"\n";
+		 nuevo +="Imagen Grupo :"+ Imagen + "|Nombre_Grupo :"+ super.getNombre()+"\n";
 			for (Agrupacion agrupacion2 : agrupacion) {
 				nuevo += agrupacion2.ver();
 				
@@ -55,6 +49,19 @@ public class Grupo extends Agrupacion{
 		
 		return getAgrupacion().toString();
 	}
+
+	public void añadirContactos(Agrupacion nueva, String nombre,int profundidad) {
+		if(nombre.equals(getNombre())){
+			agrupacion.add(nueva);
+		}else{
+			for(int i = 0; i<agrupacion.size();i++)
+			if(agrupacion.get(i) instanceof Grupo)
+				((Grupo)agrupacion.get(i)).añadirContactos(nueva, nombre, profundidad +1);
+		}
+		
+
+	}
+
 	
 	
 }
