@@ -12,71 +12,136 @@ import benito.agenda.agrupacion.Grupo;
 import benito.agenda.servidor.HttpServicio;
 import benito.agenda.servidor.ParserHttp;
 
+/**
+ * 
+ * @author Jose Antonio de Benito Suarez
+ * @version v17/02/2016 Clase Principal generación de una Agenda en la que se
+ *          pueden añadir los contactos y los grupos.
+ */
 public class Agenda {
-
+	/**
+	 * Atributos principales Agrupacion y servicio para conexion
+	 */
 	private Agrupacion agrupacion;
 	private HttpServicio service;
-	public Agenda(){
-	this.agrupacion= new Grupo("0","0");
-	}
-	public Agenda(Agrupacion agrupacion) {
-		this.agrupacion = agrupacion;
-		
-	}
-	public void añadirContactos(Agrupacion o) {
-		if (agrupacion instanceof Grupo)
-			((Grupo) agrupacion).add(o);
+
+	/**
+	 * Contructor de Agenda encargado de inicializacion de la agenda
+	 */
+	public Agenda() {
+		this.agrupacion = new Grupo("0", "0");
 	}
 
+	/**
+	 * Contructor encargado de inicalizacion de la agenda con un parametro
+	 * agrupacion
+	 * 
+	 * @param agrupacion
+	 */
+	public Agenda(Agrupacion agrupacion) {
+		this.agrupacion = agrupacion;
+
+	}
+
+	/**
+	 * Metodo encargado de añadir los nuevos contactos a la agenda
+	 * 
+	 * @param o
+	 *            : Agrupacion nueva que se quiere añadir.
+	 */
+	public void añadirContactos(Agrupacion o) {
+		if (agrupacion instanceof Grupo)
+			((Grupo) agrupacion).añadir(o);
+	}
+
+	/**
+	 * Metodo para visualizar los contactos.
+	 * 
+	 * @return String con los datos de los contactos
+	 */
 	public String verContactos() {
 		return agrupacion.ver();
 
 	}
 
-	public void removeContactos(Agrupacion o) {
+	/**
+	 * Metodo para borrar un contacto en el caso de que fuera necesario.
+	 * 
+	 * @param o
+	 *            : Agrupacion que se desee borrar.
+	 */
+	public void borrarContactos(Agrupacion o) {
 		if (agrupacion instanceof Grupo)
-			((Grupo) agrupacion).remove(o);
+			((Grupo) agrupacion).borrar(o);
 	}
 
+	/**
+	 * Listado de los grupos que se deseen ver dentro de una agrupacion.
+	 * 
+	 * @return Listado de grupos .
+	 */
 	public List<Agrupacion> verGrupos() {
 		return ((Grupo) agrupacion).getAgrupacion();
 	}
 
+	/**
+	 * Metodo encargado de interpretar cada linea y crear los nuevos contactos y
+	 * añadirlos
+	 * 
+	 * @param linea
+	 */
 	public void interpretarLinea(String linea) {
-		String partes[]= linea.split(":");
+		String partes[] = linea.split(":");
 		Agrupacion nueva;
-
-		if (partes.length== 3)
+		// Si es 3 se crea un grupo sino se crea un contacto como mucho el
+		// tamaño es 5
+		if (partes.length == 3)
 			nueva = new Grupo(partes[0], partes[2].replace(";", ""));
 		else
-			nueva =  new Contacto(partes[0], partes[2], partes[3], partes[4].replace(";", ""));
-		if(agrupacion.getNombre().equals("0"))
+			nueva = new Contacto(partes[0], partes[2], partes[3],
+					partes[4].replace(";", ""));
+		// Si el nombre de la agrupacion es 0 es la primera agrupacion sino
+		// llamamos al metodo añadir contactos en la clase grupo
+		if (agrupacion.getNombre().equals("0"))
 			agrupacion = nueva;
 		else
-		((Grupo) agrupacion).añadirContactos(nueva , partes[1],0);
-	}			
+			((Grupo) agrupacion).añadirContactos(nueva, partes[1]);
+	}
 
-	
-	public void interpretar(String nombreFichero) throws IOException  {
+	/**
+	 * Metodo encargado de la interpretacion del fichero se le pasan las lineas
+	 * a otro metodo interpretarLinea
+	 * 
+	 * @param nombreFichero
+	 * @throws IOException
+	 */
+	public void interpretar(String nombreFichero) throws IOException {
 		BufferedReader read = null;
-		String linea = null ;
+		String linea = null;
 		try {
 			read = new BufferedReader(new FileReader("FicheroREST.txt"));
-		
-			while ((linea= read.readLine()) != null) {
-			interpretarLinea(linea);
+
+			while ((linea = read.readLine()) != null) {
+				interpretarLinea(linea);
 			}
-		read.close();
+			read.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("Problemas en la carga del fichero");
+			throw new FileNotFoundException("Problemas no encuentra el fichero");
+		} catch (IOException io) {
+			throw new IOException("Problemas en la carga del fichero");
 		}
-		
-	
-		
+
 	}
-	public void sacarDatosServidor(){
+
+	/**
+	 * Metodo encargado de llamar a la URl y transformar los datos asi como
+	 * añadirlos
+	 * 
+	 * @throws IOException
+	 */
+	public void sacarDatosServidor() throws IOException {
 		this.service = new ParserHttp("");
-		service.execute();
-		
+		service.execute(this);
+
 	}
 }

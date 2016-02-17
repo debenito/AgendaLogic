@@ -6,13 +6,11 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import benito.agenda.Agenda;
-import benito.agenda.agrupacion.Agrupacion;
 import benito.agenda.agrupacion.Contacto;
 import benito.agenda.agrupacion.Grupo;
 
@@ -64,11 +62,11 @@ public class TestAgenda {
 	@Test
 	public void LLamadas(){
 		
-		assertEquals(((Contacto)Reins.getAgrupacion().get(0)).clickOn(),"Llamando al telefono"+ Leo.getTelefono());
-		assertEquals(((Contacto)Reins.getAgrupacion().get(1)).clickOn(),"Llamando al telefono"+ "123432567");
-		assertNotEquals(((Contacto)Reins.getAgrupacion().get(1)).clickOn(),"Llamando al telefono"+ Leo.getTelefono());
-		assertNotEquals(((Contacto)representantes.getAgrupacion().get(1)).clickOn(),"Llamando al telefono"+ Leo.getTelefono());
-		assertEquals(((Contacto)representantes.getAgrupacion().get(1)).clickOn(),"Llamando al telefono"+ "123452158");
+		assertEquals(((Contacto)Reins.getAgrupacion().get(0)).getTelefono(), Leo.getTelefono());
+		assertEquals(((Contacto)Reins.getAgrupacion().get(1)).getTelefono(), "123432567");
+		assertNotEquals(((Contacto)Reins.getAgrupacion().get(1)).getTelefono(), Leo.getTelefono());
+		assertNotEquals(((Contacto)representantes.getAgrupacion().get(1)).getTelefono(), Leo.getTelefono());
+		assertEquals(((Contacto)representantes.getAgrupacion().get(1)).getTelefono(), "123452158");
 
 	}
 	
@@ -91,25 +89,26 @@ public class TestAgenda {
 		assertEquals(((Contacto)representantes.getAgrupacion().get(1)).getApellidos(),"");
 	}
 	@Test
-	public void removerContactos(){
+	public void borrarrContactos(){
 		assertEquals(agenda.verGrupos().size(), 2);
 		assertNotEquals(agenda.verGrupos().get(0),Favoritos);
-		Reins.remove(Reins.getAgrupacion().get(2));
+		Reins.borrar(Reins.getAgrupacion().get(2));
 		assertNotEquals(1,Reins.getAgrupacion().size());
 		assertEquals(Reins.getAgrupacion().get(0),Leo);
-		Reins.remove(Reins.getAgrupacion().get(1));
+		Reins.borrar(Reins.getAgrupacion().get(1));
 		assertEquals(1,Reins.getAgrupacion().size());
 		assertEquals(Reins.getAgrupacion().get(0),Leo);
-		agenda.removeContactos(Favoritos);
-		agenda.removeContactos(Reins);
+		agenda.borrarContactos(Favoritos);
+		agenda.borrarContactos(Reins);
 		assertEquals(true, agenda.verGrupos().isEmpty());
-		
+
 	}
 	
 	@Test
 	public void ComprobacionSalida() throws IOException{
 	
-		BufferedReader read =new BufferedReader(new FileReader("FicheroPrueba.txt"));
+		@SuppressWarnings("resource")
+		BufferedReader read =new BufferedReader(new FileReader("FicheroSalida.txt"));
 		String sCurrentLine = "" ;
 
 		while (read.readLine() != null) {
