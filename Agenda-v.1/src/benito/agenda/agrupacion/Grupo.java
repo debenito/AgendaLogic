@@ -114,5 +114,18 @@ public class Grupo extends Agrupacion {
 		}
 
 	}
+	
+	public Agrupacion buscarAgrupacion(String nombre){
+		if (nombre.equals(getNombre())) {
+			return this;
+		} else {
+			for (int i = 0; i < agrupacion.size(); i++)
+				// Si el objeto es una instacia de Grupo añade a ese grupo el
+				// nuevo contacto o grupo haciendo una llamada recursiva
+				if (agrupacion.get(i) instanceof Grupo)
+					((Grupo) agrupacion.get(i)).buscarAgrupacion(nombre);
+		}
+		return null;
+	}
 
 }

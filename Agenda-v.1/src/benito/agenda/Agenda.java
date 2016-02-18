@@ -89,13 +89,17 @@ public class Agenda {
 	 * añadirlos
 	 * 
 	 * @param linea
+	 * @throws IOException 
+	 * @throws Exception 
 	 */
-	public void interpretarLinea(String linea) {
+	public void interpretarLinea(String linea) throws IOException  {
 		String partes[] = linea.split(":");
+	
 		Agrupacion nueva;
+		if(comprobacionTrim(partes)){
 		// Si es 3 se crea un grupo sino se crea un contacto como mucho el
 		// tamaño es 5
-		if (partes.length == 3)
+		if (partes.length == 3 )
 			nueva = new Grupo(partes[0], partes[2].replace(";", ""));
 		else
 			nueva = new Contacto(partes[0], partes[2], partes[3],
@@ -106,6 +110,24 @@ public class Agenda {
 			agrupacion = nueva;
 		else
 			((Grupo) agrupacion).añadirContactos(nueva, partes[1]);
+		}else
+			throw new IOException("Existen espacios entre los datos pasados");
+	}
+/**
+ * Metodo para comprobar si existen espacios entre los :
+ * @param partes
+ */
+	private boolean comprobacionTrim(String[] partes) {
+		String parteVieja;
+		boolean parte = false;
+		for(int i = 0; i<partes.length ; i++){
+			parteVieja =partes[i];
+			if(partes[i].trim().equals(parteVieja))
+					parte=true;
+			
+		}
+		return parte;
+		
 	}
 
 	/**
@@ -113,9 +135,10 @@ public class Agenda {
 	 * a otro metodo interpretarLinea
 	 * 
 	 * @param nombreFichero
-	 * @throws IOException
+	 * @throws IOException 
+	 * @throws Exception 
 	 */
-	public void interpretar(String nombreFichero) throws IOException {
+	public void interpretar(String nombreFichero) throws IOException  {
 		BufferedReader read = null;
 		String linea = null;
 		try {
@@ -143,5 +166,15 @@ public class Agenda {
 		this.service = new ParserHttp("");
 		service.execute(this);
 
+	}
+	
+
+	
+	public Agrupacion getAgrupacion() {
+		return agrupacion;
+	}
+
+	public Agrupacion buscarAgrupacion(String nombre){
+		return ((Grupo)agrupacion).buscarAgrupacion(nombre);
 	}
 }
