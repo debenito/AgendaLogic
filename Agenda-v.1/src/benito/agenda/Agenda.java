@@ -24,7 +24,7 @@ public class Agenda {
 	 */
 	private Agrupacion agrupacion;
 	private HttpServicio service;
-
+	private static int TRES = 3;
 	/**
 	 * Contructor de Agenda encargado de inicializacion de la agenda
 	 */
@@ -89,45 +89,47 @@ public class Agenda {
 	 * añadirlos
 	 * 
 	 * @param linea
-	 * @throws IOException 
-	 * @throws Exception 
+	 * @throws IOException
+	 * @throws Exception
 	 */
-	public void interpretarLinea(String linea) throws IOException  {
+	public void interpretarLinea(String linea) throws IOException {
 		String partes[] = linea.split(":");
-	
+
 		Agrupacion nueva;
-		if(comprobacionTrim(partes)){
-		// Si es 3 se crea un grupo sino se crea un contacto como mucho el
-		// tamaño es 5
-		if (partes.length == 3 )
-			nueva = new Grupo(partes[0], partes[2].replace(";", ""));
-		else
-			nueva = new Contacto(partes[0], partes[2], partes[3],
-					partes[4].replace(";", ""));
-		// Si el nombre de la agrupacion es 0 es la primera agrupacion sino
-		// llamamos al metodo añadir contactos en la clase grupo
-		if (agrupacion.getNombre().equals("0"))
-			agrupacion = nueva;
-		else
-			((Grupo) agrupacion).añadirContactos(nueva, partes[1]);
-		}else
+		if (comprobacionTrim(partes)) {
+			// Si es 3 se crea un grupo sino se crea un contacto como mucho el
+			// tamaño es 5
+			if (partes.length == TRES)
+				nueva = new Grupo(partes[0], partes[2].replace(";", ""));
+			else
+				nueva = new Contacto(partes[0], partes[2], partes[3],
+						partes[4].replace(";", ""));
+			// Si el nombre de la agrupacion es 0 es la primera agrupacion sino
+			// llamamos al metodo añadir contactos en la clase grupo
+			if (agrupacion.getNombre().equals("0"))
+				agrupacion = nueva;
+			else
+				((Grupo) agrupacion).añadirContactos(nueva, partes[1]);
+		} else
 			throw new IOException("Existen espacios entre los datos pasados");
 	}
-/**
- * Metodo para comprobar si existen espacios entre los :
- * @param partes
- */
+
+	/**
+	 * Metodo para comprobar si existen espacios entre los :
+	 * 
+	 * @param partes
+	 */
 	private boolean comprobacionTrim(String[] partes) {
 		String parteVieja;
 		boolean parte = false;
-		for(int i = 0; i<partes.length ; i++){
-			parteVieja =partes[i];
-			if(partes[i].trim().equals(parteVieja))
-					parte=true;
-			
+		for (int i = 0; i < partes.length; i++) {
+			parteVieja = partes[i];
+			if (partes[i].trim().equals(parteVieja))
+				parte = true;
+
 		}
 		return parte;
-		
+
 	}
 
 	/**
@@ -135,10 +137,10 @@ public class Agenda {
 	 * a otro metodo interpretarLinea
 	 * 
 	 * @param nombreFichero
-	 * @throws IOException 
-	 * @throws Exception 
+	 * @throws IOException
+	 * @throws Exception
 	 */
-	public void interpretar(String nombreFichero) throws IOException  {
+	public void interpretar(String nombreFichero) throws IOException {
 		BufferedReader read = null;
 		String linea = null;
 		try {
@@ -167,14 +169,15 @@ public class Agenda {
 		service.execute(this);
 
 	}
-	
 
-	
 	public Agrupacion getAgrupacion() {
 		return agrupacion;
 	}
 
-	public Agrupacion buscarAgrupacion(String nombre){
+	public Agrupacion pasarSiguiente(String nombre){
 		return ((Grupo)agrupacion).buscarAgrupacion(nombre);
 	}
+	
+	 
+	
 }

@@ -1,5 +1,6 @@
 package benito.agenda.editor;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,26 +9,25 @@ import benito.agenda.agrupacion.Agrupacion;
 import benito.agenda.agrupacion.Grupo;
 
 public class Panel {
-	 public static final int TRES =3;  
+	public static final int TRES = 3;
 	List<AreaDelContenido> pizarras = new ArrayList<AreaDelContenido>();
-	private Panel panel = new Panel();
 	private int tamañoAltoEditor;
 	private int tamañoAnchoEditor;
-	private Agenda a;
-	public Panel(){
-		
+	private Agenda agenda;
+
+	public Panel() {
+
 	}
-	public Panel(int tamañoAltoEditor, int tamañoANchoEditor, Agenda a) throws CloneNotSupportedException{
-		this.tamañoAltoEditor=tamañoAltoEditor;
+
+	public Panel(int tamañoAltoEditor, int tamañoANchoEditor, Agenda agenda)
+			throws CloneNotSupportedException {
+		this.tamañoAltoEditor = tamañoAltoEditor;
 		this.tamañoAnchoEditor = tamañoANchoEditor;
-		this.a= a;
-		setPanel(this);
+		this.agenda = agenda;
+		this.cambiarPantalla(agenda.getAgrupacion(), agenda.getAgrupacion()
+				.getNombre());
 	}
-	
-	private void setPanel(Panel panel2) {
-	this.panel= panel2;
-		
-	}
+
 	public int getTamañoAltoEditor() {
 		return tamañoAltoEditor;
 	}
@@ -44,34 +44,47 @@ public class Panel {
 		this.tamañoAnchoEditor = tamañoAnchoEditor;
 	}
 
-	public void añadirPizarras(AreaDelContenido p){
-		pizarras.add(p);
+	public void añadirPizarras(Grupo agrupacion, int ancho, int alto) {
+		
+		for (int i = 0; i < agrupacion.getAgrupacion().size(); i++)
+			pizarras.add(new AreaDelContenido((tamañoAnchoEditor * i) + ancho,
+					(tamañoAnchoEditor * i) + alto, agrupacion.getAgrupacion()
+							.get(i), this,new Point( i * ancho,i*alto)));
+
 	}
-	public void borrarPizarra(AreaDelContenido p){
+
+	public void borrarPizarra(AreaDelContenido p) {
 		pizarras.remove(p);
 	}
-	public AreaDelContenido getPizarra(int i){
+
+	public AreaDelContenido getPizarra(int i) {
 		return pizarras.get(i);
 	}
+
 	public void clickon(int x, int y) {
-	for (AreaDelContenido pizarra : pizarras) {
-		pizarra.pinchar(x, y);
+		for (AreaDelContenido pizarra : pizarras) {
+			pizarra.pinchar(x, y);
 		}
 	}
-	public Panel getEditor(){
-		return panel;
-	}
-	public void cambiarPantalla(Agrupacion agrupacion) {
-		int tamañoAgrupacion =((Grupo)agrupacion).getAgrupacion().size();
-		int ancho =tamañoAnchoEditor/TRES;
+
+	public void cambiarPantalla(Agrupacion agrupacion, String nombre) {
+	borrarPizarras();
+		int ancho = tamañoAnchoEditor / TRES;
 		int alto = ancho;
-		AreaDelContenido p = new AreaDelContenido(ancho,alto,a.buscarAgrupacion(agrupacion.getNombre()));
-		this.añadirPizarras(p);
+		Agrupacion nueva = agenda.pasarSiguiente(nombre);
+		this.añadirPizarras((Grupo) nueva, ancho, alto);
+
+	}
+
+	private void borrarPizarras() {
+		for(int i= 0; i< pizarras.size();i++)
+			this.borrarPizarra(pizarras.get(i));
 		
 	}
-	
-	public void dibujar(){
-		System.out.println("Tamaño Panel : "+ tamañoAltoEditor + "" + tamañoAnchoEditor);
+
+	public void dibujar() {
+		System.out.println("Tamaño Panel : " + tamañoAltoEditor + ":"
+				+ tamañoAnchoEditor);
 		for (AreaDelContenido areaDelContenido : pizarras) {
 			areaDelContenido.dibujar();
 		}

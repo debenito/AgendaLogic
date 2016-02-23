@@ -3,19 +3,28 @@ package benito.agenda.editor;
 import java.awt.Point;
 
 import benito.agenda.agrupacion.Agrupacion;
+import benito.agenda.agrupacion.Grupo;
 
 public class AreaDelContenido {
 	private int alto;
 	private int ancho;
 	private Contenedor c ;
 	private Agrupacion a;
-	public AreaDelContenido(int ancho, int alto, Agrupacion a) {
+	private Panel panel;
+	private Point point;
+	public AreaDelContenido(int ancho, int alto, Agrupacion a, Panel panel,Point point) {
 		this.alto = alto;
 		this.ancho = ancho;
 		this.a= a;
+		this.panel = panel;
+		this.point=point;
+		setC(c);
 		
-		setC(new DibujaGrupo(alto, ancho, new Point(0,0)));;
 
+	}
+
+	public Agrupacion getA() {
+		return a;
 	}
 
 	public Contenedor getC() {
@@ -23,7 +32,11 @@ public class AreaDelContenido {
 	}
 
 	public void setC(Contenedor c) {
-		this.c = c;
+		if(a instanceof Grupo)
+			this.c =new DibujaGrupo(alto, ancho, point,panel);
+		else
+			this.c =new DibujaContacto(alto, ancho, point);
+
 	}
 
 	public int getAlto() {
@@ -42,7 +55,7 @@ public class AreaDelContenido {
 		this.ancho = ancho;
 	}
 	
-	public void pinchar (int x , int y ){
+	public void pinchar (int x , int y ) {
 		c.clickon(x, y,a);
 	}
 	public void dibujar(){

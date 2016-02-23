@@ -10,8 +10,7 @@ public class Main {
 
 	Agenda a = new Agenda();
 	a.interpretar("FicheroRest.txt");
-	Panel p = new Panel(50,60,a);
-	p.cambiarPantalla(a.getAgrupacion());
+	Panel p = new Panel(100,200,a);
 	p.dibujar();
 	p.clickon(10, 10);
 	}

@@ -11,17 +11,16 @@ public class DibujaContacto implements Contenedor{
 	private Point corner;
 
 	public DibujaContacto(int alto, int ancho, Point corner) {
+		
+		this.corner=corner;
 		this.alto = alto;
 		this.ancho = ancho;
-
-		alto = Math.abs(corner.x - alto);
-		ancho = Math.abs(corner.y - ancho);
 	}
 
 	@Override
 	public void execute(AreaDelContenido p) {
-		p.setAlto(alto);
-		p.setAncho(ancho);
+		p.setAlto(corner.x);
+		p.setAncho(corner.y);
 	}
 
 	@Override
@@ -45,11 +44,12 @@ System.out.println("LLamado al telefono"+((Contacto)e).getTelefono());
 	public void dibujar(Agrupacion a) {
 		System.out.println("Tamaño Pizarra:"+alto +" "+ ancho);
 		System.out.println("Datos del contacto");
-		System.out.println("==============================");
 		System.out.println("Nombre:"+ a.getNombre());
 		System.out.println("Imagen"+ ((Contacto)a).getImagen());
 		System.out.println("Apellidos"+ ((Contacto)a).getApellidos());
 		System.out.println("Imagen"+ ((Contacto)a).getTelefono());
+		System.out.println("==============================");
+
 	}
 
 	@Override

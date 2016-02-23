@@ -11,12 +11,11 @@ public class DibujaGrupo implements Contenedor {
 	private Point corner;
 	private Panel editor;
 
-	public DibujaGrupo(int alto, int ancho, Point corner) {
-		
-		this.corner= corner;
-		this.alto = Math.abs(corner.x - alto);
-		this.ancho = Math.abs(corner.y - ancho);
-		this.editor = editor.getEditor();
+	public DibujaGrupo(int alto, int ancho, Point corner, Panel editor) {
+		this.corner = corner;
+		this.alto = alto;
+		this.ancho = ancho;
+		this.editor = editor;
 	}
 
 	@Override
@@ -26,9 +25,9 @@ public class DibujaGrupo implements Contenedor {
 	}
 
 	@Override
-	public void clickon(int x, int y, Agrupacion e) {
+	public void clickon(int x, int y, Agrupacion e)  {
 		if (contiene(x,y)){
-			editor.cambiarPantalla(e);
+			editor.cambiarPantalla(e,e.getNombre());
 		}
 	}
 
@@ -41,16 +40,17 @@ public class DibujaGrupo implements Contenedor {
 	public void dibujar(Agrupacion a) {
 		System.out.println("Tamaño Pizarra:"+alto +" "+ ancho);
 		System.out.println("Posicion Esquina:"+corner.x +" "+ corner.y);
-		System.out.println("Datos del contacto");
-		System.out.println("==============================");
+		System.out.println("Datos del Grupo");
 		System.out.println("Nombre:"+ a.getNombre());
 		System.out.println("Imagen"+ ((Grupo)a).getImagen());
+		System.out.println("==============================");
+
 	
 	}
 
 	@Override
 	public Contenedor createContenedor() {
 		// TODO Auto-generated method stub
-		return new DibujaGrupo(alto, ancho, corner);
+		return new DibujaGrupo(alto, ancho, corner,editor);
 	}
 }
