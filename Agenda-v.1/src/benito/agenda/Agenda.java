@@ -25,6 +25,7 @@ public class Agenda {
 	private Agrupacion agrupacion;
 	private HttpServicio service;
 	private static int TRES = 3;
+
 	/**
 	 * Contructor de Agenda encargado de inicializacion de la agenda
 	 */
@@ -174,10 +175,4 @@ public class Agenda {
 		return agrupacion;
 	}
 
-	public Agrupacion pasarSiguiente(String nombre){
-		return ((Grupo)agrupacion).buscarAgrupacion(nombre);
-	}
-	
-	 
-	
 }

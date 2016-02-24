@@ -25,6 +25,12 @@ public class TestAgenda {
 	@Before
 	public void test() throws IOException {
 		
+		agenda = cargardatos();
+	//	fail("Not yet implemented");
+	}
+		
+
+	public Agenda cargardatos() throws IOException{
 		agenda = new Agenda();
 		agenda.interpretar("FicheroREST.txt");
 		Reins = ((Grupo)agenda.verGrupos().get(0));
@@ -32,11 +38,8 @@ public class TestAgenda {
 		representantes = ((Grupo)asociacion.getAgrupacion().get(1));
 		Favoritos = ((Grupo)agenda.verGrupos().get(1));
 		Leo = (Contacto)Reins.getAgrupacion().get(0);
-	//	fail("Not yet implemented");
+		return agenda;
 	}
-		
-
-	
 	@Test
 	public void AgendaLista(){
 	//agenda.verContactos();

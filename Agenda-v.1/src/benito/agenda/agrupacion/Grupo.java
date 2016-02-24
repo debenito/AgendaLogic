@@ -114,13 +114,13 @@ public class Grupo extends Agrupacion {
 		}
 
 	}
-	
-	public Agrupacion buscarAgrupacion(String nombre){
-		if(nombre.equals(getNombre()))
-				return this;
+
+	public Agrupacion buscarAgrupacion(String nombre) {
+		if (nombre.equals(getNombre()))
+			return this;
 		else
-			for(int i = 0; i< agrupacion.size(); i++)
-				if(agrupacion.get(i).getNombre().equals(nombre))
+			for (int i = 0; i < agrupacion.size(); i++)
+				if (agrupacion.get(i).getNombre().equals(nombre))
 					return agrupacion.get(i);
 		return null;
 	}

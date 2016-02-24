@@ -36,6 +36,5 @@ public abstract class Agrupacion {
 	public String getNombre() {
 		return nombre;
 	}
-	
 
 }
